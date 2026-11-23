@@ -1,0 +1,44 @@
+{
+  "info": {
+    "_postman_id": "ee57c835-e2fa-41f4-afe5-582b2b24d5a3",
+    "name": "Clasificador de commits",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "60365910",
+    "_collection_link": "https://go.postman.co/collection/60365910-ee57c835-e2fa-41f4-afe5-582b2b24d5a3?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Clasificar",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Inferencias",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    }
+  ]
+}
