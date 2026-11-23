@@ -109,7 +109,7 @@ def health():
 def clasificar(p: Peticion):
     """Clasifica un mensaje de commit y registra la inferencia."""
     motor = p.motor or os.getenv("MOTOR_POR_DEFECTO", "eco")
-    inicio = time.time()
+    inicio = time.perf_counter()
 
     if motor == "eco":
         modelo = "reglas-v1"
@@ -120,7 +120,7 @@ def clasificar(p: Peticion):
     else:
         raise HTTPException(status_code=400, detail="motor debe ser eco u ollama")
 
-    latencia_ms = (time.time() - inicio) * 1000
+    latencia_ms = (time.perf_counter() - inicio) * 1000
     registrar(motor, modelo, p.texto, salida, latencia_ms)
     return {
         "motor": motor,
