@@ -41,7 +41,21 @@ Cliente (navegador / Postman)
 | latencia_ms | INTEGER | Tiempo de clasificación |
 
 ## 5. Respaldo y restauración
-(Completar en la semana 5 con el procedimiento probado, la periodicidad propuesta y el responsable.)
+El respaldo se hace con `pg_dump` y se restaura con `psql`. El procedimiento fue probado: se creó el respaldo, se vació la tabla `inferencias` (simulación de desastre) y se restauró; el conteo de registros volvió al valor original y la aplicación siguió insertando con el rol `app_ia`.
+
+````bash
+# 1) Crear el respaldo
+mkdir -p backups
+docker compose exec -T db pg_dump -U postgres --clean --if-exists iadb > backups/respaldo_$(date +%F).sql
+
+# 2) Restaurar
+cat backups/respaldo_FECHA.sql | docker compose exec -T db psql -U postgres -d iadb
+````
+
+- **Periodicidad propuesta**: una vez al día (por ejemplo, de madrugada con una tarea programada `cron`) y siempre antes de cada despliegue o cambio en el esquema de la base de datos.
+- **Responsable**: (Juan Sebastián Ramos Gutiérrez).
+- **Almacenamiento**: los archivos `.sql` contienen datos de usuarios, por lo que están excluidos del repositorio (`backups/` en `.gitignore`). Deben guardarse en un lugar aparte y con acceso restringido.
+- **Verificación**: cada cierto tiempo se debe restaurar un respaldo en un entorno de prueba para confirmar que sirve.
 
 ## 6. Decisiones de diseño y limitaciones
 - **Dockerfile multi-etapa**: la imagen final no lleva herramientas de compilación, así que es más liviana y segura.
